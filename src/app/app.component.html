@@ -1,0 +1,61 @@
+<ion-app>
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <div class="menuTop">
+        <div class="menuTop__left">
+          <img routerLink=".." class="logo" src="assets/logo.png" alt="">
+        </div>
+        <div class="menuTop__right">
+          <button>Connect</button>
+          <ion-avatar>
+            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+          </ion-avatar>
+        </div>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay">
+      <ion-content>
+          <ion-list id="inbox-list">
+
+            <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+              <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+                <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+                <ion-label>{{ p.title }}</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </ion-list>
+      </ion-content>
+      <ion-card>
+      <div class="menu-bottom" >
+        <div class="info" >
+          <div class="money">
+            <ion-icon name="bowling-ball-outline"></ion-icon>
+            $14.772
+          </div>
+          <div class="social">
+          <a [href]="this.fbLink">
+            <ion-icon name="logo-facebook"></ion-icon>
+            <ion-icon name="call-outline"></ion-icon>
+          </a>
+          </div>
+        </div>
+        <div class="setting">
+          <div class="darkmode" (click)="changeMode($event)">
+            <ion-icon [ngClass]="this.light ? ' ' : 'dark'" name="sunny-outline"></ion-icon><span>/</span><ion-icon [ngClass]="this.light ? 'dark' : ' '" name="moon-outline"></ion-icon>
+          </div>
+          <div class="language">
+            <p>EN</p>
+            <ion-icon name="globe-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </ion-card>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>
