@@ -1,0 +1,59 @@
+{
+	"generator_info": "Shape definitions generated with PhysicsEditor. Visit https://www.codeandweb.com/physicseditor",
+	"spaceship": {
+		"type": "fromPhysicsEditor",
+		"label": "spaceship",
+		"isStatic": false,
+		"density": 0.10000000149011612,
+		"restitution": 0,
+		"friction": 0.10000000149011612,
+		"frictionAir": 0.009999999776482582,
+		"frictionStatic": 0.5,
+		"collisionFilter": {
+			"group": 0,
+			"category": 1,
+			"mask": 255
+		},
+		"fixtures": [
+			{
+				"label": "",
+				"isSensor": false,
+				"vertices": [
+					[ { "x":123.5, "y":156 }, { "x":123, "y":124.5 }, { "x":98.5, "y":107 }, { "x":93, "y":147.5 } ],
+					[ { "x":0, "y":156.5 }, { "x":31, "y":147.5 }, { "x":25, "y":107.5 }, { "x":-0.5, "y":125 } ],
+					[ { "x":62, "y":2 }, { "x":51.5, "y":12 }, { "x":43.5, "y":27 }, { "x":32.5, "y":57 }, { "x":96.5, "y":81 }, { "x":89.5, "y":52 }, { "x":80.5, "y":28 }, { "x":72, "y":13 } ],
+					[ { "x":86.5, "y":154 }, { "x":87, "y":147.5 }, { "x":25, "y":107.5 }, { "x":36, "y":147.5 }, { "x":48.5, "y":155 } ],
+					[ { "x":38, "y":154.5 }, { "x":48.5, "y":155 }, { "x":36, "y":147.5 } ],
+					[ { "x":47, "y":165.5 }, { "x":76, "y":165.5 }, { "x":76, "y":154.5 }, { "x":48.5, "y":155 } ],
+					[ { "x":96.5, "y":81 }, { "x":32.5, "y":57 }, { "x":28.5, "y":73 }, { "x":25.5, "y":92 }, { "x":25, "y":107.5 }, { "x":87, "y":147.5 }, { "x":93, "y":147.5 }, { "x":98.5, "y":107 } ],
+					[ { "x":31, "y":147.5 }, { "x":36, "y":147.5 }, { "x":25, "y":107.5 } ]
+				]
+			}
+		]
+	},
+	"diamond": {
+		"type": "fromPhysicsEditor",
+		"label": "diamond",
+		"isStatic": false,
+		"density": 0.1,
+		"restitution": 0,
+		"friction": 0.1,
+		"frictionAir": 0.01,
+		"frictionStatic": 0.5,
+		"collisionFilter": {
+			"group": 0,
+			"category": 1,
+			"mask": 255
+		},
+		"fixtures": [
+			{
+				"label": "",
+				"isSensor": false,
+				"vertices": [
+					[ { "x":100, "y":195 }, { "x":199.5, "y":88 }, { "x":202, "y":53 }, { "x":43, "y":5.5 }, { "x":-1, "y":51 }, { "x":-0.5, "y":87 } ],
+					[ { "x":158, "y":5.5 }, { "x":43, "y":5.5 }, { "x":202, "y":53 } ]
+				]
+			}
+		]
+	}
+}

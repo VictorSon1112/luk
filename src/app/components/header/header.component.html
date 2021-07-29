@@ -1,0 +1,67 @@
+<a *ngIf="api.showMyAd" class="myAdmob" href="{{bannerAd.link}}" target="_blank">
+  <div class="myAdmob__wrap">
+    <img class="myAdmob__banner" src="{{ bannerAd.img }}" alt="Ads-Binance" border="0"
+      style="height: {{bannerAd.heightAd}}px;" />
+    <div class="myAdmob__des">
+      <p>{{ bannerAd.description }}</p>
+    </div>
+  </div>
+</a>
+<ion-header>
+ 
+  <ion-row>
+    <ion-col class="btn_header" size="2">
+      <ion-button size="small" color="dark" routerLink="..">
+        <ion-icon name="home"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <div class="card sound_click" routerLink="/dashboard">
+        <div class="bar-icon level">
+          <span>{{ api.user.level || 0 }}</span>
+        </div>
+        <div class="progress progress-striped active">
+          <div
+            *ngIf="api.user.next_level"
+            role="progressbar progress-striped"
+            [style.width]="(api.user.next_level.progress || 0) + '%'"
+            class="progress-bar progress-bar-warning"
+          >
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </ion-col>
+    <ion-col id="balance_div" size="4">
+      <div class="card sound_click" routerLink="/withdraw">
+        <div class="bar-icon diamond">
+          <i class="fa fa-fw fa-caret-down"></i>
+        </div>
+        <div class="progress progress-striped active">
+          <div role="progressbar progress-striped" class="progress-bar">
+            <span>{{ api.num2text(api.user.balance) || 0 }}</span>
+          </div>
+        </div>
+      </div>
+      <span id="balance_effect"
+        ><i class="fa fa-fw fa-gem"></i> {{ api.balance_effect }}</span
+      >
+    </ion-col>
+
+    <ion-col class="btn_header" size="2">
+      <ion-button size="small" color="dark" class="right" routerLink="/setting">
+        <ion-icon name="settings"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-button
+    *ngIf="api.user && api.user.reward && api.reward_loaded"
+    (click)="openReward()"
+    id="btn_gift"
+    color="danger"
+    size="small"
+    class="sound_click"
+  >
+    <ion-icon name="gift"></ion-icon> +{{ api.num2text(api.user.reward) }}
+  </ion-button>
+</ion-header>

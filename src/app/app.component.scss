@@ -1,6 +1,7 @@
 ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }
+
 .wrap-content {
   display: flex;
   flex-direction: column;
@@ -10,7 +11,7 @@ ion-menu ion-content {
 ion-menu.md ion-content {
   --padding-start: 8px;
   --padding-end: 8px;
-  --padding-top: 20px;
+  --padding-top: 60px;
   --padding-bottom: 20px;
 }
 

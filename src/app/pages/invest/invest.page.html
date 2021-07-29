@@ -1,0 +1,124 @@
+<ion-content>
+	<ion-refresher slot="fixed" pullMax="150" (ionRefresh)="doRefresh($event)">
+	    <ion-refresher-content></ion-refresher-content>
+	</ion-refresher>
+
+	<ion-skeleton-text *ngIf="!config && !data" animated style="height:300px;"></ion-skeleton-text>
+	<ion-grid class="ion-margin-bottom">
+		<ion-row *ngIf="config">
+			<ion-col size="4" *ngFor="let data_pack of config.pack" class="center">
+				<div class="sound_click {{(pack !== data_pack.day)?'unactive':''}}" (click)="pack = data_pack.day">
+					<img class="card img_shop_icon" src="../../assets/images/pack/{{((data_pack.day > 6) ? 6: data_pack.day)}}.png" width="100%">
+					<div>
+						{{data_pack.day}} {{'day}}
+						<br>
+						<span class="text-success"> +{{data_pack.profit}}%</span>
+					</div>
+				</div>
+			</ion-col>
+		</ion-row>
+
+		<ion-row *ngIf="data">
+			<ion-col size="8" offset="2">
+				<div class="card pack-card">
+					<img class="" src="../../assets/images/pack/{{((data.day > 6) ? 6: data.day)}}.png" width="100%">
+					<div class="ribbon red-ribbon">
+						<span class="text-shadow">
+						{{data.day}} {{'day}} +{{data.profit}}%
+						</span>
+					</div>
+				</div>
+			</ion-col>
+			<ion-col size="12">
+				<div id="progress_reward" class="card ion-margin-top">
+					<div class="progress progress-striped active">
+				      	<div role="progressbar progress-striped" [style.width]="data.percent" class="progress-bar progress-bar-info">
+					      	<span class="">
+					      		<i class="fa fa-fw fa-gem"></i>
+					      		{{data.earning || 0}}
+					      	</span>
+				      	</div>
+				    </div>
+			    </div>
+			</ion-col>
+			<ion-col size="12">
+			    <ion-text class="center" color="success"><i class="fa fa-fw fa-spin fa-spinner"></i> {{'description_invest}}</ion-text>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<div id="history" *ngIf="history">
+		<div class="button_tabs">
+			<div class="center">
+				<ion-text color="warning">
+					<i class="fa fa-fw fa-history"></i> {{'history' }}
+				</ion-text>
+			</div>
+			<ion-segment (ionChange)="segmentChanged($event)" [value]="tab_active">
+				<ion-segment-button class="card bg1" *ngFor="let t of tabs" [value]="t">
+					<ion-label>
+				    	<ion-icon [name]="t"></ion-icon>
+				    </ion-label>
+			  	</ion-segment-button>
+			</ion-segment>
+		</div>
+		<div class="ion-margin-top" class="fadein {{(tab_active === t) ? '': 'ion-hide'}}" *ngFor="let t of tabs;">
+			<ion-list lines="none" >
+				<ion-item *ngFor="let h of history[t]; let k = index;">
+					<ion-avatar slot="start">
+						<img class="card img_shop_icon" src="../../assets/images/pack/{{((h.day > 6) ? 6: h.day)}}.png" height="130">
+					</ion-avatar>
+					<ion-label>
+						<h3 class="text-shadow">
+							<span class="text-{{(h.done)?'success':'info'}}">
+								<i class="fa fa-{{(h.done)?'check': 'spin fa-spinner'}}"></i> + {{h.profit}}%
+							</span>
+
+							<span *ngIf="t !== 'person'">
+								{{(h.name) || (('player' ) + ' ' + h.id)}}
+							</span>
+
+						</h3>
+						<p class="text-gray">
+							{{h.created_at | date: 'yyyy-M-d'}}
+							<span class="text-success">
+								<i class="fa fa-fw fa-gem"></i>
+								{{api.num2text(h.amount)}}
+							</span>
+						</p>
+					</ion-label>
+
+					<ion-avatar slot="end" *ngIf="t !== 'person'">
+						<ion-img class="card" [src]="api.getAvatar(h)"></ion-img>
+					</ion-avatar>
+				</ion-item>
+			</ion-list>
+		</div>
+	</div>
+</ion-content>
+<ion-footer>
+	<ion-row *ngIf="!config && !data">
+		<ion-col size="12">
+			<ion-skeleton-text animated></ion-skeleton-text>
+			<ion-skeleton-text animated></ion-skeleton-text>
+		</ion-col>
+	</ion-row>
+	<ion-row *ngIf="config">
+		<ion-col size="7">
+			<ion-range class="range_star" [(ngModel)]="pack" pin="true" snaps="true" [min]="config.pack[0].day" [max]="config.pack[config.pack.length-1].day" color="tertiary"></ion-range>
+
+			<ion-range class="range_diamond" [(ngModel)]="amount" pin="true" snaps="true" [min]="(api.user.balance/10)" [step]="(api.user.balance/10)" [max]="(api.user.balance)" color="secondary"></ion-range>
+		</ion-col>
+		<ion-col size="5">
+			<!-- <div class="center text-success sound_click" (click)="api.openModal('instruction', {des: 'description_invest'})">
+				<i class="fa fa-fw fa-info-circle"></i> {{'profit' }}
+				<br>
+				<ion-chip color="primary">
+					<i class="fa fa-fw fa-gem"></i> {{api.num2text(amount+(amount/100*config.pack[pack-1].profit) || 0)}}
+				</ion-chip>
+			</div> -->
+			<ion-button class="btn_sell" [disabled]="amount > api.user.balance || !amount" (click)="invest()" color="success" expand="block">
+				<ion-icon name="flash"></ion-icon> {{'invest' }}
+			</ion-button>
+		</ion-col>
+	</ion-row>
+</ion-footer>

@@ -1,0 +1,9 @@
+<div class="button_back">
+    <ion-button size="small" color="dark" routerLink='..'>
+      	<ion-icon name="home"></ion-icon>
+    </ion-button>
+
+    <ion-button size="small" [color]="(api.sound['_muted'])?'dark':''" class="right" (click)="api.toggleVolume()">
+      	<ion-icon name="volume-{{(api.sound['_muted'])?'mute':'high'}}"></ion-icon>
+    </ion-button>
+</div>

@@ -1,0 +1,75 @@
+<ion-content [forceOverscroll]="false">
+	<ion-grid>
+		<ion-row>
+			<ion-col>
+				<!-- <iframe frameborder='0' class="card" style='width: 100%;min-height: 300px;' src='https://s.tradingview.com/widgetembed/?frameElementId=tradingview_3f110&symbol=COINBASE:BTCUSD&interval=1&saveimage=1&toolbarbg=f4f7f9&studies=%5B%5D&studies=BB%40tv-basicstudies&hideideas=1&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&utm_source=localhost&utm_medium=widget&utm_campaign=chart'></iframe> -->
+			</ion-col>
+		</ion-row>
+
+		<ion-row class="box_amount fadein">
+			<ion-col size="8">
+				<ion-range color="secondary" [min]="min" id="amount_range" [max]="api.user.balance" [step]="min" [(ngModel)]="amount" class="sound_click">
+					<ion-text slot="start" color="secondary">
+						<i class="fa fa-fw fa-gem"></i>
+					</ion-text>
+		      	</ion-range>
+			</ion-col>
+			<ion-col size="4" class="box_input">
+				<div class="card card-blue">
+					<ion-input [min]="min" [max]="api.user.balance" required type="number" class="ion-no-padding sound_click" [(ngModel)]="amount"></ion-input>
+				</div>
+			</ion-col>
+
+			<ion-col size="12">
+				<ion-row>
+		    		<ion-col class="btn_set_amount" size="3" *ngFor="let b of api.btn_amount; let i = index;">
+		    			<button [disabled]="api.user.balance < min" type="button" (click)="setAmount(b)" class="sound_click btn bg{{i}}">{{b}}</button>
+		    		</ion-col>
+				</ion-row>
+			</ion-col>
+		</ion-row>
+	    <ion-row>
+	    	<ion-col size="12">
+				<div class="history_div">
+					<div *ngIf="history">
+						<ion-chip class="fadein" *ngFor="let h of history; let i = index;" [color]="(h.type === '+') ? 'secondary':'danger'">
+							<i class="fa fa-fw fa-gem"></i> {{api.num2text(h.value)}}
+						</ion-chip>
+					</div>
+					<div *ngIf="!history">
+						<ion-skeleton-text animated></ion-skeleton-text>
+					</div>
+				</div>
+	    	</ion-col>
+	    </ion-row>
+	</ion-grid>
+
+</ion-content>
+<ion-footer class="footer_game">
+	<div class="alert_chip zoominout">
+		<ion-badge color="warning">
+			{{'profi}} <i class="fa fa-fw fa-gem"></i> 40,000
+		</ion-badge>
+	</div>
+	<ion-grid>
+		<ion-row>
+			<ion-col size="6">
+				<ion-button (click)="play('up')" expand="block" color="success">
+					<i class="fa fa-fw fa-angle-double-up"></i> {{'u}}
+				</ion-button>
+			</ion-col>
+			<ion-col size="6">
+				<ion-button (click)="play('down')" expand="block" color="danger">
+					<i class="fa fa-fw fa-angle-double-down"></i> {{'dow}}
+				</ion-button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<!-- <div class="button_tabs">
+		<ion-segment (ionChange)="segmentChanged($event)" [value]="tab_active">
+		  	<ion-segment-button class="card" [disabled]="tab_active == api.tabs[i]" *ngFor="let t of api.tabs;let i = index;" [value]="t">
+		    	<ion-text class="{{(i)?'end':'start'}}">{{t}}</ion-text>
+		  	</ion-segment-button>
+		</ion-segment>
+	</div> -->
+</ion-footer>

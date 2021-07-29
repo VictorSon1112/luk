@@ -1,0 +1,106 @@
+<ion-content>
+	<ion-refresher slot="fixed" pullMax="150" (ionRefresh)="doRefresh($event)">
+	    <ion-refresher-content></ion-refresher-content>
+	</ion-refresher>
+	<div class="button_tabs">
+		<ion-segment (ionChange)="pageChanged($event)" [value]="page_active">
+			<ion-segment-button class="card bg{{i}}" *ngFor="let t of pages; let i = index;" [value]="t.title">
+				<ion-label class="text-shadow">
+			    	<i [class]="t.icon"></i>
+			    	{{t.title }}
+			    </ion-label>
+		  	</ion-segment-button>
+		</ion-segment>
+	</div>
+
+	<ion-grid>
+		<ion-row *ngIf="!data;else showP">
+			<ion-col size="4" *ngFor="let t of [].constructor(12)">
+				<ion-skeleton-text animated style="height:80px;"></ion-skeleton-text>
+			</ion-col>
+		</ion-row>
+
+		<ng-template #showP>
+			<div *ngIf="page_active === 'all'" class="fadein">
+				<ion-row>
+					<ion-col class="sound_click" size="4" sizeMd="3" *ngFor="let p of data.products" (click)="buy(p)">
+						<div class="product">
+							<img [src]="api.getAvatar({id: p.u, img: p.img})" width="100%" class="card-warning">
+							<div class="sound_click ribbon warning-ribbon">
+								<span class="text-shadow">
+								<i class="fa fa-star"></i> {{api.num2text(p.amount)}}
+								</span>
+							</div>
+							<ion-button class="sell" size="small" color="danger">
+								<i class="fa fa-gem"></i> {{api.num2text(p.price)}}
+							</ion-button>
+						</div>
+					</ion-col>
+				</ion-row>
+			</div>
+
+			<div *ngIf="page_active === 'your'" class="fadein">
+				<div class="center text-danger ion-margin-bottom">
+					<i class="fa fa-exclamation-triangle"></i> {{'des_cancel_fee'  }}
+				</div>
+				<ion-list lines="none" >
+					<!-- <ion-item *ngFor="let p of data.products_user" class="card order_item" (click)="api.openModal('market', p)">
+						<ion-thumbnail slot="start">
+							<img class="card img_shop_icon {{(p.u_buy === api.user.id)?'card-yellow':''}}" src="../../assets/images/{{(p.u_buy === api.user.id)?'star':'pack/6'}}.png" height="130">
+						</ion-thumbnail>
+						<ion-label>
+							<h3 class="text-shadow text-warning">
+								{{((p.u_buy === api.user.id)?'buy':'sell')  }}: <i class="fa fa-fw fa-star"></i> {{api.num2text(p.amount)}}
+								<ion-text *ngIf="p.canceled === 2" color="danger">
+									- {{api.num2text(p.fee)}}
+								</ion-text>
+							</h3>
+							<p class="text-info">
+								{{'price'  }}:
+								<i class="fa fa-fw fa-gem"></i>
+								{{api.num2text(p.price)}}
+							</p>
+							<p class="text-gray">
+								<i class="fa fa-fw fa-calendar-alt"></i> {{p.created_at || '00-00-00'}}
+							</p>
+						</ion-label>
+						<ion-button *ngIf="!p.canceled" (click)="cancel(p)" slot="end" color="danger">
+							<i class="fa fa-fw fa-times"></i> {{'cancel' }}
+						</ion-button>
+						<ion-text *ngIf="p.canceled === 2" slot="end" color="danger">
+							<i class="fa fa-fw fa-times"></i> {{'canceled' }}
+						</ion-text>
+						<ion-thumbnail *ngIf="p.canceled === 1" slot="end">
+							<img class="card img_shop_icon card-yellow" [src]="api.getAvatar({img:(p.u_buy === api.user.id) ? p.usell_img:p.img_buy})" height="130">
+						</ion-thumbnail>
+					</ion-item> -->
+				</ion-list>
+			</div>
+		</ng-template>
+	</ion-grid>
+</ion-content>
+<ion-footer *ngIf="page_active === 'all'">
+	<ion-row>
+		<ion-col size="7">
+			<ion-range class="range_diamond" [(ngModel)]="price" pin="true" snaps="true" [min]="config.min_price" [step]="config.min_price" [max]="config.max_price" color="secondary"></ion-range>
+
+			<ion-range class="range_star" [(ngModel)]="amount" pin="true" snaps="true" [min]="config.min_amount" [step]="config.min_amount" [max]="config.max_amount" color="warning"></ion-range>
+		</ion-col>
+		<ion-col size="5">
+
+			<!-- <div class="center text-success sound_click" (click)="api.openModal('instruction', {des: 'des_market'})">
+				<i class="fa fa-info-circle"></i> {{'will_receive' }}
+				<br>
+				<ion-chip color="primary">
+					<i class="fa fa-fw fa-gem"></i>
+					{{api.num2text(price)}}
+				</ion-chip>
+			</div> -->
+
+			<ion-button class="btn_sell" [disabled]="amount > api.user.total_play" (click)="sell()" color="warning" expand="block">
+				{{'sell' }} {{api.num2text(amount || (config.min_amount))}}<br>
+				{{'total_bet' }}
+			</ion-button>
+		</ion-col>
+	</ion-row>
+</ion-footer>

@@ -1,0 +1,189 @@
+{
+  "api": {
+    "name": "FacebookLoginPlugin",
+    "slug": "facebookloginplugin",
+    "docs": "",
+    "tags": [],
+    "methods": [
+      {
+        "name": "login",
+        "signature": "(options: { permissions: string[]; }) => Promise<FacebookLoginResponse>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ permissions: string[]; }"
+          }
+        ],
+        "returns": "Promise<FacebookLoginResponse>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "FacebookLoginResponse"
+        ],
+        "slug": "login"
+      },
+      {
+        "name": "logout",
+        "signature": "() => Promise<void>",
+        "parameters": [],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "logout"
+      },
+      {
+        "name": "getCurrentAccessToken",
+        "signature": "() => Promise<FacebookCurrentAccessTokenResponse>",
+        "parameters": [],
+        "returns": "Promise<FacebookCurrentAccessTokenResponse>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "FacebookCurrentAccessTokenResponse"
+        ],
+        "slug": "getcurrentaccesstoken"
+      },
+      {
+        "name": "getProfile",
+        "signature": "<T extends object>(options: { fields: readonly string[]; }) => Promise<T>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ fields: readonly string[]; }"
+          }
+        ],
+        "returns": "Promise<T>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "T"
+        ],
+        "slug": "getprofile"
+      }
+    ],
+    "properties": []
+  },
+  "interfaces": [
+    {
+      "name": "FacebookLoginResponse",
+      "slug": "facebookloginresponse",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "accessToken",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [
+            "AccessToken"
+          ],
+          "type": "AccessToken | null"
+        },
+        {
+          "name": "recentlyGrantedPermissions",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string[] | undefined"
+        },
+        {
+          "name": "recentlyDeniedPermissions",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string[] | undefined"
+        }
+      ]
+    },
+    {
+      "name": "AccessToken",
+      "slug": "accesstoken",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "applicationId",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string | undefined"
+        },
+        {
+          "name": "declinedPermissions",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string[] | undefined"
+        },
+        {
+          "name": "expires",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string | undefined"
+        },
+        {
+          "name": "isExpired",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "lastRefresh",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string | undefined"
+        },
+        {
+          "name": "permissions",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string[] | undefined"
+        },
+        {
+          "name": "token",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "userId",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "FacebookCurrentAccessTokenResponse",
+      "slug": "facebookcurrentaccesstokenresponse",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "accessToken",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [
+            "AccessToken"
+          ],
+          "type": "AccessToken | null"
+        }
+      ]
+    }
+  ],
+  "enums": [],
+  "typeAliases": [],
+  "pluginConfigs": []
+}

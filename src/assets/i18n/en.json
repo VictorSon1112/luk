@@ -1,0 +1,18 @@
+{
+	"action_lose": "Action on lose",
+	"action_win": "Action on win",
+	"e_code": {
+		"login_failed": "Login failed",
+		"login_success": "Login succes",
+		"input_invalid": "Input invalid",
+		"amount_invalid": "Amount invalid",
+		"untoken": "Device verification",
+		"no_ads": "Advertisement has not been loaded",
+		"no_balance": "Your balance isn't enough",
+		"empty": "Data empty",
+		"buy_success": "Transaction successfully"
+	},
+	"des": {
+		"purchasing": "Purchasing is a way of helping us develop better games"
+	}
+}

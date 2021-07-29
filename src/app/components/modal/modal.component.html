@@ -1,0 +1,113 @@
+<div class="bar">
+	<img src="assets/images/bar.png">
+	<ion-text>
+		{{page | translate}}
+		<br>
+		{{'info_detail' | translate}}
+	</ion-text>
+</div>
+<div class="card">
+
+	<div *ngIf="page == 'user' && data">
+		<div class="board">
+			<img class="img-board" src="assets/images/board.png">
+			<img class="avatar" [src]="api.getAvatar(data)">	
+			<div class="bar-icon level">
+				<span>{{data.level || 0}}</span>
+			</div>
+			<div class="content">
+				<ion-item lines="none" *ngFor="let field of show_data.user" class="text-shadow">
+					<ion-text>
+						<i class="{{field.icon}}"></i>
+						{{field.name|translate}}
+					</ion-text>
+					<ion-chip slot="end" size="large" [color]="(field.color) ? field.color: 'secondary'">
+						{{(field.type == 'number') ? api.num2text(data[field.name]): data[field.name] || (('player' | translate) + ' ' + data.id)}}
+					</ion-chip>
+				</ion-item>
+			</div>
+			<div class="center">
+				<div class="ion-margin-bottom" *ngIf="data.fb_link">
+					<a href="https://facebook.com/{{data.fb_link}}" target="_blank">
+						<ion-button>
+							<i class="fab fa-fw fa-facebook"></i> Facebook
+						</ion-button>
+					</a>
+				</div>
+				<div class="ion-margin-top">
+					<ion-text>
+						{{'registed' | translate }}: <span class="text-danger">{{api.toDate(data.created_at)}}</span>
+					</ion-text>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div *ngIf="page == 'instruction'" class="pre-wrap" [innerHTML]="(data.des | translate)">
+	</div>
+	<div *ngIf="page == 'FAQ'">
+		<ion-item>
+		  <ion-icon name="search-outline"></ion-icon>
+		  <ion-input [placeholder]="('faqs'|translate)" (ionChange)="search = $event.target.value"></ion-input>
+		</ion-item>
+		<div *ngFor="let f of faqs | keyvalue" >
+			<div class="pre-wrap ion-margin-top" *ngIf="check(f.value.q, f.value.a)">
+				<span class="text-warning"><i class="fa fa-fw fa-question-circle"></i> {{f.value.q}}</span>
+				<br>
+				<span><i class="fa fa-fw fa-minus"></i> {{f.value.a}}</span>
+			</div>
+		</div>
+	</div>
+	<div *ngIf="page == 'market'">
+		<h3 class="text-shadow text-warning">
+			#{{data.id}}-{{((data.u_buy == api.user.id)?'buy':'sell') | translate }}: <i class="fa fa-fw fa-star"></i> {{api.num2text(data.amount)}}
+			<div>
+				<ion-text *ngIf="data.canceled == 1" color="success">
+				{{data[(data.u_buy == api.user.id)?'usell_name':'name_buy']}}
+				</ion-text>
+			</div>
+
+			<ion-text *ngIf="data.canceled == 2" color="danger">
+				- {{api.num2text(data.fee)}}
+			</ion-text>
+		</h3>
+		<p class="text-info">
+			{{'price' | translate }}: 
+			<i class="fa fa-fw fa-gem"></i>
+			{{api.num2text(data.price)}}
+			<ion-text *ngIf="data.canceled == 1" color="danger">
+				- {{(data.fee/data.amount)*data.price}}
+			</ion-text>
+		</p>
+		<p class="text-gray">
+			<i class="fa fa-fw fa-calendar-alt"></i> {{data.created_at || '00-00-00'}}
+		</p>
+	</div>
+	<div *ngIf="page == 'history'" id="history">
+		<ion-list lines="none" *ngIf="history">
+			<ion-item *ngFor="let h of history" class="card ion-margin-top">
+				<ion-avatar slot="start">
+					<img [src]="(h.icon)?h.icon:api.getAvatar(h)">
+				</ion-avatar>
+				<ion-label>
+					{{(h.name) ? h.name : (('player' | translate) + ' ' + h.id)}}
+					<p class="text-gray"><i class="fa fa-fw fa-clock"></i> {{h.created_at | date: 'HH:mm:ss'}}</p>
+				</ion-label>
+				<ion-chip slot="end" [color]="(h.color)?h.color:'success'">
+					<i class="fa fa-fw fa-gem"></i> {{api.num2text(h.total)}}
+				</ion-chip>
+			</ion-item>
+		</ion-list>
+		<ion-list lines="none" *ngIf="!history">
+			<ion-item><ion-skeleton-text animated class="ion-margin-top"></ion-skeleton-text></ion-item>
+			<ion-item><ion-skeleton-text animated class="ion-margin-top"></ion-skeleton-text></ion-item>
+			<ion-item><ion-skeleton-text animated class="ion-margin-top"></ion-skeleton-text></ion-item>
+			<ion-item><ion-skeleton-text animated class="ion-margin-top"></ion-skeleton-text></ion-item>
+			<ion-item><ion-skeleton-text animated class="ion-margin-top"></ion-skeleton-text></ion-item>
+			<ion-item><ion-skeleton-text animated class="ion-margin-top"></ion-skeleton-text></ion-item>
+			<ion-item><ion-skeleton-text animated class="ion-margin-top"></ion-skeleton-text></ion-item>
+			<ion-item><ion-skeleton-text animated class="ion-margin-top"></ion-skeleton-text></ion-item>
+			<ion-item><ion-skeleton-text animated class="ion-margin-top"></ion-skeleton-text></ion-item>
+		</ion-list>
+	</div>
+</div>

@@ -1,0 +1,129 @@
+<ion-content>
+	<ion-refresher slot="fixed" pullMax="150" (ionRefresh)="doRefresh($event)">
+	    <ion-refresher-content></ion-refresher-content>
+	</ion-refresher>
+	<div class="card"></div>
+	<div class="board">
+		<img class="img-board" src="assets/images/board.png">
+		<ion-label>
+			{{'reward'}}
+			<br>
+			<ion-chip color="secondary" class="bold">
+			<i class="fa fa-fw fa-gem"></i> {{api.num2text(api.user.reward_hour)}} / {{'hour'}}
+			</ion-chip>
+			<br>
+			{{'total_bet' }}
+			<br>
+			<ion-chip color="warning">
+			<i class="fa fa-fw fa-gem"></i> {{api.num2text(api.user.total_play) || 0}}
+			</ion-chip>
+		</ion-label>
+		<ion-button class="ins_btn zoominout" color='primary' size="small" (click)="api.openModal('FAQ')">
+			<i class="fa fa-info-circle"></i>
+		</ion-button>
+	</div>
+
+	<ion-grid>
+		<ion-row>
+			<div id="next_top" *ngIf="next_top">
+				<div (click)="api.openModal('user', u)" class="ion-float-{{(i)?'right':'left'}}" *ngFor="let u of next_top; let i = index;">
+					<div class="sound_click" *ngIf="u">
+						<img src="assets/images/rank0.png">
+						<img class="avatar_top" [src]="api.getAvatar(u)">
+						<span class="text-shadow text-info top_index">{{u.top_index}}</span>
+					</div>
+				</div>
+			</div>
+			<ion-col size="10" offset="1">
+				<div class="pre-wrap center ion-padding-horizontal" *ngIf="api.user.next_level">
+					<ion-text>
+						{{'play_more' }}
+						<ion-text color="warning">
+							<i class="fa fa-fw fa-gem"></i> {{api.num2text(api.user.next_level.request) || 0 }}
+						</ion-text>
+						<br>
+						{{'to_take' }}
+						<ion-text color="secondary"><i class="fa fa-fw fa-gem"></i> {{api.num2text(api.user.next_level.reward)}}</ion-text> / {{'hour'}}
+					</ion-text>
+				</div>
+			</ion-col>
+
+			<ion-col size="12">
+				<div id="progress_reward" class="card" (click)="api.openModal('instruction', {des: 'des_reward'})">
+					<div class="sound_click progress progress-striped active">
+				      <div role="progressbar progress-striped" [style.width]="reward_percent" class="progress-bar progress-bar-danger sound_click">
+				      	<span>
+				      		<i class="fa fa-fw fa-spin fa-spinner"></i>
+				      		<i class="fa fa-fw fa-info-circle"></i>
+				      		{{'current' }} {{'reward' }}
+				      		<ion-text color="secondary">
+				      			<i class="fa fa-fw fa-gem"></i> {{reward || 0}}
+				      		</ion-text>
+				      	</span>
+				      </div>
+				    </div>
+				</div>
+			</ion-col>
+
+		</ion-row>
+
+		<!--list_game -->
+
+		<!-- end list_game -->
+
+		<!-- list_game_small -->
+		<ion-row id="list_game" class="list_game_small" *ngIf="list_game_small">
+			<ion-col [routerLink]="(game.active)?'/'+game.linkPlay:''" [class]="(game.active)?'sound_click':'disabled'" size="4" *ngFor="let game of list_game_small;let i = index">
+
+				<div class="box-game {{(game.active)?'sound_click':''}}">
+					<div class="center game card">
+						<div class="ribbon {{(game.level)?'yellow':'blue'}}-ribbon {{(game.active)?'sound_click':''}}">
+							<span class="text-shadow">
+									{{game.title}}
+									</span>
+						</div>
+
+						<img width="100%" src="{{game.name}}">
+						<img *ngIf="game.in" class="game_in" width="100%" src="{{game.in}}">
+
+					</div>
+				</div>
+			</ion-col>
+		</ion-row>
+		<!-- end list_game_small -->
+
+		<!-- history list -->
+		<ion-row *ngIf="history && history.length">
+			<ion-col>
+				<ion-text class="center text-shadow ion-padding-vertical" color="primary">
+					<i class="fa fa-fw fa-history"></i>
+					{{'recent_game' }}
+				</ion-text>
+				<ion-list>
+					<ion-item *ngFor="let h of history">
+						<ion-thumbnail slot="start">
+							<img height="100%" src="assets/images/history/{{h.action}}.png">
+						</ion-thumbnail>
+						<ion-label>
+							<h3 class="text-shadow">
+								{{(h.name) || (('player' ) + ' ' + h.u_id)}}
+							</h3>
+							<p class="text-gray" *ngIf="h.created_at">
+								{{h.created_at | date: 'H:mm:ss'}}
+								<span class="text-{{(h.type === '-')?'danger':'success'}}">
+									<i class="fa fa-fw fa-gem"></i> {{api.num2text(h.value)}}
+								</span>
+							</p>
+						</ion-label>
+
+						<ion-avatar slot="end">
+							<ion-img class="card" src="{{getAvatar(h)}}"></ion-img>
+						</ion-avatar>
+					</ion-item>
+				</ion-list>
+			</ion-col>
+		</ion-row>
+		<!-- end history list -->
+
+	</ion-grid>
+</ion-content>

@@ -1,0 +1,112 @@
+<ion-content [forceOverscroll]="false">
+	<ion-grid>
+		<ion-row>
+			<ion-col class="center play_page ion-no-padding">
+				<div id="crash_game" class="fadeIn game_full"></div>
+			</ion-col>
+		</ion-row>
+
+		<ion-row class="fadein box_amount" [hidden]="auto_play">
+
+			<ion-col size="8">
+				<ion-range color="success" id="x_range" min="1.01" max="100" [(ngModel)]="x" class="sound_click">
+					<ion-text slot="start" color="success">
+						<i class="fal fa-rocket fa-fw"></i>
+					</ion-text>
+		      	</ion-range>
+			</ion-col>
+			<ion-col size="4" class="box_input">
+				<div class="card card-green">
+					<ion-input min="1.01" max="100" required type="number" class="ion-no-padding sound_click" [(ngModel)]="x"></ion-input>
+				</div>
+			</ion-col>
+
+			<ion-col size="8">
+				<ion-range color="secondary" [min]="min" id="amount_range" [max]="api.user.balance" [(ngModel)]="amount" class="sound_click">
+					<ion-text slot="start" color="secondary">
+						<i class="fa fa-fw fa-gem"></i>
+					</ion-text>
+		      	</ion-range>
+			</ion-col>
+			<ion-col size="4" class="box_input">
+				<div class="card card-blue">
+					<ion-input (ionChange)="setAutoAmount()" [min]="min" [max]="api.user.balance" required type="number" class="ion-no-padding sound_click" [(ngModel)]="amount"></ion-input>
+				</div>
+			</ion-col>
+
+			<ion-col size="12">
+				<ion-row>
+		    		<ion-col class="btn_set_amount" size="3" *ngFor="let b of api.btn_amount; let i = index;">
+		    			<button size="small" type="button" (click)="setAmount(b)" class="sound_click btn bg{{i}}">{{b }}</button>
+		    		</ion-col>
+				</ion-row>
+			</ion-col>
+		</ion-row>
+	    <ion-row *ngIf="tab_active==='automatic'" class="fadein ion-margin-top">
+	    	<ion-col class="tab_auto" size="12" *ngFor="let tab of ['lose', 'win']" id="tab_{{tab}}">
+	    		<div class="card">
+			    <ion-row>
+			    	<ion-col size="5" class="center">
+			    		<ion-row>
+			    			<ion-col>
+				    			<ion-label (click)="api.openModal('instruction', {des: 'description_action_'+tab})" class="bold sound_click" [color]="change_auto[tab].color">
+					    			{{'action_'+tab}}
+					    			<i class="fa fa-fw fa-info-circle"></i>
+					    		</ion-label>
+								<ion-button class="sound_click" [fill]="!change_auto[tab].step?'outline':'solid'" [color]="change_auto[tab].color" [disabled]="!change_auto[tab].step" (click)="change_auto[tab].step = 0" expand="block">
+									<ion-icon name="refresh"></ion-icon>{{change_auto[tab].amount}}
+						</ion-button>
+			    			</ion-col>
+			    		</ion-row>
+			    	</ion-col>
+			    	<ion-col size="7">
+			    		<ion-row>
+		      				<ion-col *ngFor="let s of api.steps; let i = index;" size="4">
+		      					<ion-button size="small" class="sound_click" [color]="change_auto[tab].color" (click)="change_auto[tab].step = i+1" [fill]="(change_auto[tab].step===i+1)?'outline':'solid'" expand="block" [disabled]="(change_auto[tab].step===i+1)">{{s}}</ion-button>
+		      				</ion-col>
+		      			</ion-row>
+			    	</ion-col>
+			    </ion-row>
+			    </div>
+	    	</ion-col>
+	    </ion-row>
+	    <ion-row>
+	    	<ion-col size="12">
+				<div class="history_div">
+					<div *ngIf="api.crash_game.history">
+						<ion-chip class="fadein" *ngFor="let h of api.crash_game.history; let i = index;" [color]="(h.type === '+') ? 'secondary':'danger'">
+							<i class="fa fa-fw fa-gem"></i> {{api.num2text(h.value)}}
+						</ion-chip>
+					</div>
+					<div *ngIf="!api.crash_game.history">
+						<ion-skeleton-text animated></ion-skeleton-text>
+					</div>
+				</div>
+	    	</ion-col>
+	    </ion-row>
+
+	</ion-grid>
+</ion-content>
+
+<ion-footer class="footer_game">
+	<div class="alert_chip zoominout">
+		<ion-badge color="success">
+			x{{x.toFixed(2)}}
+		</ion-badge>
+	</div>
+	<div class="button_tabs">
+		<!-- <ion-segment [hidden]="auto_play" (ionChange)="segmentChanged($event)" [value]="tab_active">
+		  	<ion-segment-button class="card" [disabled]="tab_active == api.tabs[i]" *ngFor="let t of api.tabs;let i = index;" [value]="t">
+		    	<ion-text class="{{(i)?'end':'start'}}">{{t }}</ion-text>
+		  	</ion-segment-button>
+		</ion-segment> -->
+		<div id="box_click">
+			<button [disabled]="api.crash_game && api.crash_game.btn.disabled" type="submit" id="play_btn" class="btn btn_border" (click)="play()">
+			    <ion-icon [class]="(auto_play)?'fa-spin':''" name="{{(!auto_play)?'play':'reload'}}-circle-outline"></ion-icon>
+		    </button>
+		<ion-chip id="chip_current_amount" color="warning" [hidden]="!auto_play">
+	    	{{api.num2text(current_amount)}}
+	    </ion-chip>
+	    </div>
+	</div>
+</ion-footer>
