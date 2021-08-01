@@ -1,9 +1,12 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>galaxy</ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content>
+  <div  id="galaxygame" class="fadeIn game_full"></div>
+  <div *ngIf="game" id="range" class="game_footer" [style.width]="this.api.screen_size.w/4.2 + 'px'" >
 
+		<ion-range dir="ltr"  value="1100" (ionChange)="setValue('spawn', $event.target.value)" color="secondary" pin="true" min="200" max="2000" step="200" snaps="true" ticks="true"  class="sound_click" >
+	  	</ion-range>
+	  	<ion-button class="center" id="instruction_btn" (click)="api.openModal('instruction', {des: 'instruction_galaxy'})" size="small" color="dark">
+			<i class="fa fa-fw fa-info-circle"></i>
+		</ion-button>
+  	</div>
 </ion-content>

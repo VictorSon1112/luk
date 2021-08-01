@@ -1,9 +1,13 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>knife</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
+<ion-content force-overscroll="false" scroll-y="false">
+	<ion-skeleton-text *ngIf="!show" style="height: 100%;"animated></ion-skeleton-text>
+    <div id="game" class="fadeIn game" [style.opacity]="1"></div>
+    <div *ngIf="game" id="range" class="game_footer" [style.width]="this.api.screen_size.w/4 + 'px'">
+        <ion-range value="5"  (ionChange)="setValue('ship', $event.target.value)"color="secondary" pin="true" min="1"
+            max="10" step="1" snaps="true" class="sound_click">
+        </ion-range>
+        <ion-button class="center" id="instruction_btn"
+            (click)="api.openModal('instruction', {des: 'instruction_shoot'})" size="small" color="dark">
+            <i class="fa fa-fw fa-info-circle"></i>
+        </ion-button>
+    </div>
 </ion-content>

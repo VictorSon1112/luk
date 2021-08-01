@@ -77,6 +77,13 @@ const routes: Routes = [
         (m) => m.SpinPageModule
       ),
   },
+  {
+    path: 'shoot',
+    loadChildren: () =>
+      import('./pages/game/listgame/shoot/shoot.module').then(
+        (m) => m.ShootPageModule
+      ),
+  },
 ];
 
 @NgModule({

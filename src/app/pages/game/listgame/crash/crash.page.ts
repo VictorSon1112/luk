@@ -199,8 +199,8 @@ export class CrashPage implements OnInit {
       physics: {
         default: 'matter',
       },
-      width: 500,
-      height: 500,
+      width: 700,
+      height: 400,
       parent: 'crash_game',
       scene: CrashGame,
     };

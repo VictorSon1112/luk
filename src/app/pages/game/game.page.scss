@@ -107,10 +107,10 @@ ion-col.disabled {
 img.game_in {
   position: absolute;
   width: 100%;
-  left: 3px;
+  left: 0;
   right: 0;
   margin: auto;
-  top: 22px;
+  top: 10px;
 }
 .progress,
 .progress-bar {
@@ -167,3 +167,9 @@ img.game_in {
     width: 100px;
   }
 }
+// .board {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+// }

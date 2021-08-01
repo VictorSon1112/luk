@@ -30,7 +30,7 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "howler": "^2.2.3",
-    "phaser": "^3.24.1",
+    "phaser": "^3.55.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"

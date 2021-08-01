@@ -4,7 +4,9 @@
 	</ion-refresher>
 	<div class="card"></div>
 	<div class="board">
-		<img class="img-board" src="assets/images/board.png">
+		<div class="wrap-board">
+      <img class="img-board" src="assets/images/board.png">
+    </div>
 		<ion-label>
 			{{'reward'}}
 			<br>
@@ -66,15 +68,9 @@
 			</ion-col>
 
 		</ion-row>
-
-		<!--list_game -->
-
-		<!-- end list_game -->
-
 		<!-- list_game_small -->
 		<ion-row id="list_game" class="list_game_small" *ngIf="list_game_small">
 			<ion-col [routerLink]="(game.active)?'/'+game.linkPlay:''" [class]="(game.active)?'sound_click':'disabled'" size="4" *ngFor="let game of list_game_small;let i = index">
-
 				<div class="box-game {{(game.active)?'sound_click':''}}">
 					<div class="center game card">
 						<div class="ribbon {{(game.level)?'yellow':'blue'}}-ribbon {{(game.active)?'sound_click':''}}">
@@ -85,7 +81,6 @@
 
 						<img width="100%" src="{{game.name}}">
 						<img *ngIf="game.in" class="game_in" width="100%" src="{{game.in}}">
-
 					</div>
 				</div>
 			</ion-col>

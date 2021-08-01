@@ -10,7 +10,7 @@
 				<div class="sound_click {{(pack !== data_pack.day)?'unactive':''}}" (click)="pack = data_pack.day">
 					<img class="card img_shop_icon" src="../../assets/images/pack/{{((data_pack.day > 6) ? 6: data_pack.day)}}.png" width="100%">
 					<div>
-						{{data_pack.day}} {{'day}}
+						{{data_pack.day}} {{'day'}}
 						<br>
 						<span class="text-success"> +{{data_pack.profit}}%</span>
 					</div>
@@ -24,7 +24,7 @@
 					<img class="" src="../../assets/images/pack/{{((data.day > 6) ? 6: data.day)}}.png" width="100%">
 					<div class="ribbon red-ribbon">
 						<span class="text-shadow">
-						{{data.day}} {{'day}} +{{data.profit}}%
+						{{data.day}} {{'day'}} +{{data.profit}}%
 						</span>
 					</div>
 				</div>
@@ -42,7 +42,7 @@
 			    </div>
 			</ion-col>
 			<ion-col size="12">
-			    <ion-text class="center" color="success"><i class="fa fa-fw fa-spin fa-spinner"></i> {{'description_invest}}</ion-text>
+			    <ion-text class="center" color="success"><i class="fa fa-fw fa-spin fa-spinner"></i> {{'description_invest'}}</ion-text>
 			</ion-col>
 		</ion-row>
 	</ion-grid>
@@ -50,7 +50,7 @@
 		<div class="button_tabs">
 			<div class="center">
 				<ion-text color="warning">
-					<i class="fa fa-fw fa-history"></i> {{'history' }}
+					<i class="fa fa-fw fa-history"></i> {{'history'}}
 				</ion-text>
 			</div>
 			<ion-segment (ionChange)="segmentChanged($event)" [value]="tab_active">
@@ -61,7 +61,7 @@
 			  	</ion-segment-button>
 			</ion-segment>
 		</div>
-		<div class="ion-margin-top" class="fadein {{(tab_active === t) ? '': 'ion-hide'}}" *ngFor="let t of tabs;">
+		<div class="ion-margin-top" class="fadein {{(tab_active == t) ? '': 'ion-hide'}}" *ngFor="let t of tabs;">
 			<ion-list lines="none" >
 				<ion-item *ngFor="let h of history[t]; let k = index;">
 					<ion-avatar slot="start">
@@ -74,7 +74,7 @@
 							</span>
 
 							<span *ngIf="t !== 'person'">
-								{{(h.name) || (('player' ) + ' ' + h.id)}}
+								{{(h.name) || (('player') + ' ' + h.id)}}
 							</span>
 
 						</h3>
@@ -109,15 +109,15 @@
 			<ion-range class="range_diamond" [(ngModel)]="amount" pin="true" snaps="true" [min]="(api.user.balance/10)" [step]="(api.user.balance/10)" [max]="(api.user.balance)" color="secondary"></ion-range>
 		</ion-col>
 		<ion-col size="5">
-			<!-- <div class="center text-success sound_click" (click)="api.openModal('instruction', {des: 'description_invest'})">
-				<i class="fa fa-fw fa-info-circle"></i> {{'profit' }}
+			<div class="center text-success sound_click" (click)="api.openModal('instruction', {des: 'description_invest'})">
+				<i class="fa fa-fw fa-info-circle"></i> {{'profit'}}
 				<br>
 				<ion-chip color="primary">
 					<i class="fa fa-fw fa-gem"></i> {{api.num2text(amount+(amount/100*config.pack[pack-1].profit) || 0)}}
 				</ion-chip>
-			</div> -->
+			</div>
 			<ion-button class="btn_sell" [disabled]="amount > api.user.balance || !amount" (click)="invest()" color="success" expand="block">
-				<ion-icon name="flash"></ion-icon> {{'invest' }}
+				<ion-icon name="flash"></ion-icon> {{'invest'}}
 			</ion-button>
 		</ion-col>
 	</ion-row>

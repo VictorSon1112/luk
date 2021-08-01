@@ -1,3 +1,11 @@
+ion-header,
+ion-toolbar {
+  --background: var(--ion-item-background, var(--ion-background-color, #fff));
+}
+.setMenu {
+  width: 240px;
+  transition: width 0.3s;
+}
 ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }
@@ -126,9 +134,7 @@ ion-item.selected {
 ion-content {
   --padding-top: 40px;
 }
-ion-list {
-  --width: 240px !important;
-}
+
 .menuTop {
   .logo {
     width: 40px;
@@ -205,4 +211,14 @@ ion-list {
       }
     }
   }
+}
+.setMenu.hiddenMN {
+  width: 56px;
+}
+.icon-mg {
+  margin: 0;
+}
+.hideItem {
+  --inner-padding-end: 0;
+  --inner-padding-start: 0;
 }

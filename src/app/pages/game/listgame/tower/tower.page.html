@@ -1,9 +1,9 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>tower</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
+<ion-content force-overscroll="false" scroll-y="false">
+	<ion-skeleton-text *ngIf="!show" style="height: 100%;"animated></ion-skeleton-text>
+	<div id="game2" class="game fadeIn" [style.opacity]="show"></div>
+	<div class="game_footer center">
+		<ion-button id="instruction_btn" (click)="api.openModal('instruction', {des: 'instruction_tower'})" size="small" color="dark">
+			<i class="fa fa-fw fa-info-circle"></i>
+		</ion-button>
+	</div>
 </ion-content>

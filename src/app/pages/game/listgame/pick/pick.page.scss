@@ -1,0 +1,48 @@
+.canvas {
+  margin-top: 19.5%;
+  width: 55%;
+}
+.pick_btn ion-icon {
+  position: absolute;
+  border-radius: 10px;
+  right: 5px;
+  background: #2196f3;
+  box-shadow: 0px 2px 3px 1px black;
+}
+.fliploop {
+  -webkit-animation: fliper 2s infinite alternate;
+  animation: fliper 2s infinite alternate;
+}
+.checked img {
+  opacity: 0.9;
+  top: 2px;
+  box-shadow: 0px 2px 1px black;
+}
+.img_p {
+  position: relative;
+  border: 3px solid;
+  border-radius: 10px;
+  background: #ed7627;
+  border-color: #ed7627 #f8aa27 #ffdc9d #ff9800;
+  box-shadow: 1px 1px 0 2px rgba(0, 0, 0, 0.3), 0 5px 1.2px rgba(0, 0, 0, 0.5),
+    0 5.4px 9px rgba(0, 0, 0, 0.2);
+}
+.win {
+  -webkit-animation: mover 0.5s infinite alternate;
+  animation: mover 0.5s infinite alternate;
+}
+.img_p.win {
+  padding: 15%;
+  background: #76c2ff;
+  border-color: #325dee #1389ff #3791ff #38afff;
+}
+.btn_custom {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+.btn_custom ion-col * {
+  margin: 0;
+}
