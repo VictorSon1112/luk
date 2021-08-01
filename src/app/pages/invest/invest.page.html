@@ -8,9 +8,9 @@
 		<ion-row *ngIf="config">
 			<ion-col size="4" *ngFor="let data_pack of config.pack" class="center">
 				<div class="sound_click {{(pack !== data_pack.day)?'unactive':''}}" (click)="pack = data_pack.day">
-					<img class="card img_shop_icon" src="../../assets/images/pack/{{((data_pack.day > 6) ? 6: data_pack.day)}}.png" width="100%">
+					<img class="card img_shop_icon" src="../assets/images/pack/{{((data_pack.day > 6) ? 6: data_pack.day)}}.png" width="100%">
 					<div>
-						{{data_pack.day}} {{'day'}}
+						{{data_pack.day}} {{'day'|translate}}
 						<br>
 						<span class="text-success"> +{{data_pack.profit}}%</span>
 					</div>
@@ -24,7 +24,7 @@
 					<img class="" src="../../assets/images/pack/{{((data.day > 6) ? 6: data.day)}}.png" width="100%">
 					<div class="ribbon red-ribbon">
 						<span class="text-shadow">
-						{{data.day}} {{'day'}} +{{data.profit}}%
+						{{data.day}} {{'day'|translate}} +{{data.profit}}%
 						</span>
 					</div>
 				</div>
@@ -42,7 +42,7 @@
 			    </div>
 			</ion-col>
 			<ion-col size="12">
-			    <ion-text class="center" color="success"><i class="fa fa-fw fa-spin fa-spinner"></i> {{'description_invest'}}</ion-text>
+			    <ion-text class="center" color="success"><i class="fa fa-fw fa-spin fa-spinner"></i> {{'description_invest'|translate}}</ion-text>
 			</ion-col>
 		</ion-row>
 	</ion-grid>
@@ -50,7 +50,7 @@
 		<div class="button_tabs">
 			<div class="center">
 				<ion-text color="warning">
-					<i class="fa fa-fw fa-history"></i> {{'history'}}
+					<i class="fa fa-fw fa-history"></i> {{'history' | translate}}
 				</ion-text>
 			</div>
 			<ion-segment (ionChange)="segmentChanged($event)" [value]="tab_active">
@@ -74,7 +74,7 @@
 							</span>
 
 							<span *ngIf="t !== 'person'">
-								{{(h.name) || (('player') + ' ' + h.id)}}
+								{{(h.name) || (('player' | translate) + ' ' + h.id)}}
 							</span>
 
 						</h3>
@@ -110,14 +110,14 @@
 		</ion-col>
 		<ion-col size="5">
 			<div class="center text-success sound_click" (click)="api.openModal('instruction', {des: 'description_invest'})">
-				<i class="fa fa-fw fa-info-circle"></i> {{'profit'}}
+				<i class="fa fa-fw fa-info-circle"></i> {{'profit' | translate}}
 				<br>
 				<ion-chip color="primary">
 					<i class="fa fa-fw fa-gem"></i> {{api.num2text(amount+(amount/100*config.pack[pack-1].profit) || 0)}}
 				</ion-chip>
 			</div>
 			<ion-button class="btn_sell" [disabled]="amount > api.user.balance || !amount" (click)="invest()" color="success" expand="block">
-				<ion-icon name="flash"></ion-icon> {{'invest'}}
+				<ion-icon name="flash"></ion-icon> {{'invest' | translate}}
 			</ion-button>
 		</ion-col>
 	</ion-row>

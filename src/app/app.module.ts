@@ -3,7 +3,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-// import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-// import { ComponentsModule } from './components/components.module';
+import { ComponentsModule } from './components/components.module';
 // import { InAppPurchase2 } from '@ionic-native/in-app-purchase-2/ngx';
 import {
   TranslateModule,
@@ -53,10 +53,10 @@ export class MyMissingTranslationHandler implements MissingTranslationHandler {
       },
       // defaultLanguage: 'en'
     }),
-    // ComponentsModule,
+    ComponentsModule,
     // ChatPageModule,
     // SocketIoModule.forRoot(environment.socket),
-    // DragDropModule
+    DragDropModule,
   ],
   providers: [
     // AdMobFree,

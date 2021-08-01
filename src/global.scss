@@ -67,8 +67,11 @@ a {
 .bold {
   font-weight: bold;
 }
+ion-menu-button {
+  color: var(--ion-color-dark);
+}
 ion-item {
-  --color: white;
+  --color: var(--ion-color-dark);
 }
 ion-toolbar {
   --color: white;
