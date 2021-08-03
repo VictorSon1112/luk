@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Phaser from 'phaser';
-import { ApiService } from './../../../../api.service';
+import { ApiService } from '../../../../api.service';
 
 // let playing = false;
 class GalaxyGame extends Phaser.Scene {
@@ -43,19 +43,19 @@ class GalaxyGame extends Phaser.Scene {
 
     this.load.setBaseURL('assets/');
     this.load.image('sky', 'images/bggalaxy.jpg');
-    this.load.atlas(
-      'entities',
-      'game/galaxy/sprites/entities.png',
-      'game/galaxy/sprites/entities.json'
-    );
+    // this.load.atlas(
+    //   'entities',
+    //   'game/galaxy/sprites/entities.png',
+    //   'game/galaxy/sprites/entities.json'
+    // );
 
     this.load.image('rocket', 'game/galaxy/spaceship.png');
     this.load.image('diamond', 'images/diamond.png');
 
-    // this.load.spritesheet('kaboom', 'images/exp2.png', {
-    //   frameWidth: 100,
-    //   frameHeight: 100,
-    // });
+    this.load.spritesheet('kaboom', 'images/exp2.png', {
+      frameWidth: 100,
+      frameHeight: 100,
+    });
 
     this.load.audio('eat', 'sounds/in/win.mp3');
 
@@ -108,15 +108,15 @@ class GalaxyGame extends Phaser.Scene {
     this.sky = this.add.sprite(0, 0, 'sky');
     this.sky.setDisplaySize(width, height);
     this.sky.setOrigin(0, 0);
-    // this.anims.create({
-    //   key: 'boom',
-    //   frames: this.anims.generateFrameNumbers('kaboom', {
-    //     start: 0,
-    //     end: 150,
-    //   }),
-    //   frameRate: 30,
-    //   repeat: 0,
-    // });
+    this.anims.create({
+      key: 'boom',
+      frames: this.anims.generateFrameNumbers('kaboom', {
+        start: 0,
+        end: 150,
+      }),
+      frameRate: 30,
+      repeat: 0,
+    });
     const bounds = this.matter.world.setBounds(0, -200, width, height + 200);
     for (let key in bounds.walls) {
       bounds.walls[key].label = key;
@@ -149,22 +149,26 @@ class GalaxyGame extends Phaser.Scene {
           if (objHit.parent.label === this.LABEL.DIAMOND) {
             this.removeDiamond(objHit);
             point = Math.floor(this.value.spawn / 200);
-            this.score = this.score + point;
+            this.score += point;
             this.api.animate(point);
             this.api.user.balance += point;
           } else if (objHit.parent.label === this.LABEL.ASTEROID) {
-            point = -Math.floor(this.value.spawn / 150);
-            this.score = this.score + point;
+            if (this.api.user.balance == 0) {
+              point = 0;
+            } else {
+              point = -Math.floor(this.value.spawn / 150);
+            }
+            this.score += point;
             this.api.animate(point);
             this.api.user.balance += point;
-            // var explosion = this.add
-            //   .sprite(bodyB.position.x, bodyB.position.y / 0.8, 'kaboom')
-            //   .play('boom');
-            // explosion.depth = 2;
-            // explosion.once('animationcomplete', () => {
-            //   explosion.destroy();
-            //   this.removeDiamond(objHit);
-            // });
+            var explosion = this.add
+              .sprite(bodyB.position.x, bodyB.position.y / 0.8, 'kaboom')
+              .play('boom');
+            explosion.depth = 2;
+            explosion.once('animationcomplete', () => {
+              explosion.destroy();
+              this.removeDiamond(objHit);
+            });
           }
         }
 
@@ -209,15 +213,16 @@ class GalaxyGame extends Phaser.Scene {
     //   .setDepth(1000);
 
     // sendData
-    this.events.on('destroy', () => {
-      this.sendData(true);
-    });
-    this.time.addEvent({
-      delay: 5000,
-      callback: this.sendData,
-      callbackScope: this,
-      loop: true,
-    });
+    // this.events.on('destroy', () => {
+    //   this.sendData();
+    //   this.registry.destroy(); // destroy registry
+    // });
+    // this.time.addEvent({
+    //   delay: 3000,
+    //   callback: this.sendData,
+    //   callbackScope: this,
+    //   loop: true,
+    // });
   }
   removeDiamond(obj) {
     this.diamonds = this.diamonds.filter((e) => e.body.id !== obj.parent.id);
@@ -225,15 +230,16 @@ class GalaxyGame extends Phaser.Scene {
     obj.parent.destroy();
   }
 
-  sendData(force = false) {
-    // this.api
-    //   .post('user?action=galaxy', {
-    //     data: this.score,
-    //   })
-    //   .subscribe((r) => {
-    //     console.log(r);
-    //   });
-  }
+  // sendData() {
+  //   this.api
+  //     .post('user?action=galaxy', {
+  //       data: this.score,
+  //       balance: this.api.user.balance,
+  //     })
+  //     .subscribe((r) => {
+  //       this.score = 0;
+  //     });
+  // }
 
   update() {
     if (this.pointer.isDown) {
@@ -300,7 +306,6 @@ export class GalaxyPage implements OnInit {
   game: any;
   config: any;
   show = 0;
-
   value: any = {
     spawn: 1100,
   };
@@ -308,7 +313,7 @@ export class GalaxyPage implements OnInit {
   constructor(public api: ApiService) {
     this.config = {
       width: 400,
-      height: 500,
+      height: 480,
       type: Phaser.AUTO,
       mode: Phaser.Scale.FIT,
       autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -326,7 +331,6 @@ export class GalaxyPage implements OnInit {
       scene: [GalaxyGame],
     };
   }
-
   ngOnInit() {
     // this.api.post('user?action=history&name=galaxy', {}).subscribe((r) => {
     //   this.api.crash_game.history = r.history;

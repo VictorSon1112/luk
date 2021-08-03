@@ -10,10 +10,10 @@ export class AppComponent implements OnInit {
   light = false;
   fbLink = 'https://www.facebook.com/luckystd/';
   public appPages = [
-    { title: 'Game', url: 'game', icon: 'mail' },
-    { title: 'Trade', url: 'trade', icon: 'paper-plane' },
-    { title: 'Invest', url: 'invest', icon: 'heart' },
-    { title: 'Market', url: 'market', icon: 'heart' },
+    { title: 'Game', url: 'game', icon: 'game' },
+    { title: 'Trade', url: 'trade', icon: 'trade' },
+    { title: 'Invest', url: 'invest', icon: 'invest' },
+    { title: 'Market', url: 'market', icon: 'market' },
   ];
   constructor(public api: ApiService) {}
   ngOnInit() {

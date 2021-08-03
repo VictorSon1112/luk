@@ -24,7 +24,8 @@
 
             <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
               <ion-item routerDirection="root" [ngClass]="{'hideItem': !show}" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-                <ion-icon [ngClass]="{'icon-mg': !show}" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+                <!-- <ion-icon [ngClass]="{'icon-mg': !show}" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon> -->
+                <img class="icon-img" src="assets/icon/{{p.icon}}.png" alt="">
                 <ion-label *ngIf="show" >{{ p.title }}</ion-label>
               </ion-item>
             </ion-menu-toggle>
@@ -56,7 +57,7 @@
       </div>
       <div *ngIf="!show">
         <ion-item class="hideItem" (click)="showMenu()">
-          <ion-icon [ngClass]="{'icon-mg': !show}" name="settings-outline"></ion-icon>
+          <img class="icon-img" src="assets/icon/setting.png" alt="">
         </ion-item>
       </div>
     </ion-card>
